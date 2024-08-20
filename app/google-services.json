@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "370794625273",
+    "project_id": "shopcenter-7833b",
+    "storage_bucket": "shopcenter-7833b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:370794625273:android:35fbbf03add34831c00a28",
+        "android_client_info": {
+          "package_name": "com.shopcenter.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAO_GaAL49M81xD4dOSuhWAeXkqYe7b300"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
