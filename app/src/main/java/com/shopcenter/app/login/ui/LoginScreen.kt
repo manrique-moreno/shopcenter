@@ -1,21 +1,15 @@
 package com.shopcenter.app.login.ui
 
-import android.provider.Settings.Secure.getString
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -27,6 +21,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -35,9 +31,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.shopcenter.app.R
+import com.shopcenter.app.login.ui.components.ButtonLogin
 import kotlinx.coroutines.delay
 
 @Preview(showBackground = true)
@@ -46,7 +41,7 @@ fun LoginScreen() {
     val customFont = FontFamily(Font(R.font.alba____))
     var rotatedX by remember { mutableStateOf(false) }
     var rotatedY by remember { mutableStateOf(false) }
-    var animacionTexto by remember { mutableStateOf(100.dp) }
+    var animacionTexto by remember { mutableStateOf(150.dp) }
 
     LaunchedEffect(Unit) {
         rotatedY = true
@@ -77,12 +72,14 @@ fun LoginScreen() {
             .background(Color.Blue),
         contentAlignment = Alignment.Center
     ) {
-        /*Image(
-            painter = rememberAsyncImagePainter(url=),
+        Image(
+            painter = painterResource(id = R.drawable.background) /*rememberAsyncImagePainter(url=)*/,
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
-        )*/
+        )
+        
+        
         Column(modifier = Modifier.graphicsLayer {
             rotationY = rotarY
             rotationX = rotarX
@@ -109,28 +106,11 @@ fun LoginScreen() {
                     .offset(y = (-150).dp)
             )
         }
-        Text(
-            text = "La Casa de las Zapatillas @SoloOriginales",
-            color = Color.White,
-            textAlign = TextAlign.Center,
-            fontSize = 15.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter)
+
+        ButtonLogin(
+            Modifier
                 .offset(y = animateTexto)
-                .background(
-                    color = Color.Black,
-                    shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
-                )
-                .padding(vertical = 10.dp)
-
-        )
-        FloatingActionButton(onClick = {
-
-        }, modifier = Modifier.align(Alignment.BottomEnd).padding(40.dp)) {
-            Icon(imageVector = Icons.Default.Add, contentDescription = "")
-        }
+                .align(Alignment.BottomCenter))
     }
 }
 

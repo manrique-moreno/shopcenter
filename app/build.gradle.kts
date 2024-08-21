@@ -71,10 +71,12 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    //hitl
+    //hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
-    implementation(libs.androidx.hilt.navigation.compose)
+
+    //hilt navigation compose
+    implementation(libs.androidx.navigation.compose)
 
     //images
     implementation(libs.coil.compose)
