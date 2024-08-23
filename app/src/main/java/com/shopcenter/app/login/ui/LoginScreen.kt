@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.shopcenter.app.R
 import com.shopcenter.app.login.ui.components.ButtonLogin
+import com.shopcenter.app.ui.theme.orange
 import kotlinx.coroutines.delay
 
 @Preview(showBackground = true)
@@ -69,7 +70,7 @@ fun LoginScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Blue),
+            .background(orange),
         contentAlignment = Alignment.Center
     ) {
         Image(

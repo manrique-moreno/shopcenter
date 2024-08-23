@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.shopcenter.app.R
@@ -35,13 +36,13 @@ fun ButtonLogin(modifier: Modifier) {
         modifier = modifier
             .fillMaxWidth()
             .background(
-                color = Color.Black,
-                shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
+                color = Color.Black.copy(0.6f),
+                shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp)
             )
             .padding(vertical = 20.dp),
     ) {
 
-        Text(text = "Iniciar Sesión con",
+        Text(text = "Iniciar sesión con",
             color = Color.White,
             textAlign = TextAlign.Center,
             fontSize = 16.sp,
@@ -61,7 +62,7 @@ fun ButtonLogin(modifier: Modifier) {
                 painter = painterResource(id = R.drawable.ic_google),
                 contentDescription = "logo_google",
                 modifier = Modifier
-                    .size(60.dp)
+                    .size(55.dp)
                     .clip(CircleShape)
                     .border(border = BorderStroke(1.dp, Color.Black), shape = CircleShape)
                     .clickable {
@@ -73,7 +74,7 @@ fun ButtonLogin(modifier: Modifier) {
                 painter = painterResource(id = R.drawable.ic_facebook),
                 contentDescription = "logo_facebook",
                 modifier = Modifier
-                    .size(60.dp)
+                    .size(55.dp)
                     .clip(CircleShape)
                     .clickable {
 
@@ -85,7 +86,7 @@ fun ButtonLogin(modifier: Modifier) {
                 painter = painterResource(id = R.drawable.ic_phone),
                 contentDescription = "call",
                 modifier = Modifier
-                    .size(60.dp)
+                    .size(55.dp)
                     .clip(CircleShape)
                     .clickable {
 
