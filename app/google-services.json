@@ -1,26 +1,44 @@
 {
   "project_info": {
-    "project_number": "370794625273",
-    "project_id": "shopcenter-7833b",
-    "storage_bucket": "shopcenter-7833b.appspot.com"
+    "project_number": "449698127810",
+    "project_id": "app-shopcenter",
+    "storage_bucket": "app-shopcenter.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:370794625273:android:35fbbf03add34831c00a28",
+        "mobilesdk_app_id": "1:449698127810:android:bd8ba4cf9f14feb0f2805b",
         "android_client_info": {
           "package_name": "com.shopcenter.app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "449698127810-66u6jbap3tg1ol3sfttbjo3mbrcqq22i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shopcenter.app",
+            "certificate_hash": "902f01b6fdf7be5a8ad4e6e7d21bd202d7591280"
+          }
+        },
+        {
+          "client_id": "449698127810-5suabflausfg1cdfuf7u1mq573lm3odp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyAO_GaAL49M81xD4dOSuhWAeXkqYe7b300"
+          "current_key": "AIzaSyBM5cQY1LBQX6W9j-ecIasdhYPSzYhb-kw"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "449698127810-5suabflausfg1cdfuf7u1mq573lm3odp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

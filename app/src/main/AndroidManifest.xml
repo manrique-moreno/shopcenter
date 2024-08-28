@@ -26,6 +26,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.auth.api.credentials.CREDENTIAL_PICKER_INTENT"
+            android:value="true"/>
     </application>
 
 </manifest>
