@@ -18,14 +18,17 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,13 +36,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.AuthCredential
@@ -73,120 +78,62 @@ fun ButtonLogin(modifier: Modifier) {
         }
     }
 
-    if (showBottomPhone) {
-        BottomPhone(modifier)
-    }else{
-        Column(
-            modifier = modifier
-                .fillMaxWidth()
-                .background(
-                    color = if (isSystemInDarkTheme()) white.copy(0.15f) else black.copy(0.15f),
-                    shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp)
-                )
-                .padding(vertical = 20.dp),
-        ) {
-
-            Text(text = "Iniciar sesión con",
-                color = MaterialTheme.colorScheme.secondary,
-                textAlign = TextAlign.Center,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.fillMaxWidth())
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            Row(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 10.dp),
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-
-                Image(
-                    painter = painterResource(id = R.drawable.ic_google),
-                    contentDescription = "logo_google",
-                    modifier = Modifier
-                        .size(55.dp)
-                        .clip(CircleShape)
-                        .clickable {
-                            //signIn()
-                            val opciones = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                                .requestIdToken(token)
-                                .requestEmail()
-                                .build()
-                            val googleSignInClient = GoogleSignIn.getClient(context, opciones)
-                            signInLauncher.launch(googleSignInClient.signInIntent)
-                        }
-                )
-
-                Image(
-                    painter = painterResource(id = R.drawable.ic_facebook),
-                    contentDescription = "logo_facebook",
-                    modifier = Modifier
-                        .size(55.dp)
-                        .clip(CircleShape)
-                        .clickable {
-
-                        }
-                )
-
-
-                Image(
-                    painter = painterResource(id = R.drawable.ic_phone),
-                    contentDescription = "call",
-                    modifier = Modifier
-                        .size(55.dp)
-                        .clip(CircleShape)
-                        .clickable {
-                            showBottomPhone = true
-                        }
-                )
-
-            }
-        }
-    }
-
-
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun BottomPhone(modifier: Modifier = Modifier) {
-    var text by remember {
-        mutableStateOf("")
-    }
-
     Column(
         modifier = modifier
             .fillMaxWidth()
             .background(
-                color = Color.Black.copy(0.6f),
+                color = if (isSystemInDarkTheme()) white.copy(0.15f) else black.copy(0.15f),
                 shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp)
             )
             .padding(vertical = 20.dp),
     ) {
 
-        Text(text = "Ingrese su número de celular",
-            color = Color.White,
+        Text(
+            text = "Iniciar sesión con",
+            color = MaterialTheme.colorScheme.secondary,
             textAlign = TextAlign.Center,
             fontSize = 16.sp,
             fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.fillMaxWidth())
+            modifier = Modifier.fillMaxWidth()
+        )
 
-        Spacer(modifier = modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         Row(
             modifier = modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(bottom = 10.dp),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            TextField(
-                value = text,
-                onValueChange = { text = it },
-                label = { Text("0")}, keyboardActions = KeyboardActions()
+            Image(
+                painter = painterResource(id = R.drawable.ic_google),
+                contentDescription = "logo_google",
+                modifier = Modifier
+                    .size(55.dp)
+                    .clip(CircleShape)
+                    .clickable {
+                        //signIn()
+                        val opciones = GoogleSignInOptions
+                            .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                            .requestIdToken(token)
+                            .requestEmail()
+                            .build()
+                        val googleSignInClient = GoogleSignIn.getClient(context, opciones)
+                        signInLauncher.launch(googleSignInClient.signInIntent)
+                    }
+            )
+
+            Image(
+                painter = painterResource(id = R.drawable.ic_facebook),
+                contentDescription = "logo_facebook",
+                modifier = Modifier
+                    .size(55.dp)
+                    .clip(CircleShape)
+                    .clickable {
+
+                    }
             )
 
 
@@ -197,12 +144,97 @@ private fun BottomPhone(modifier: Modifier = Modifier) {
                     .size(55.dp)
                     .clip(CircleShape)
                     .clickable {
-
+                        showBottomPhone = true
                     }
             )
 
         }
     }
+
+    if (showBottomPhone) {
+        BottomPhone(modifier) { showBottomPhone = false }
+    }
+
+
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BottomPhone(modifier: Modifier = Modifier, onDismiss: () -> Unit ) {
+    var text by remember {
+        mutableStateOf("")
+    }
+    var showDialog by remember {
+        mutableStateOf(true)
+    }
+
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = {
+                showDialog = false
+                onDismiss()
+            },
+            dismissButton = {
+                TextButton(onClick = {
+                    showDialog = false
+                    onDismiss()
+                }) {
+                    Text(text = "Cancelar")
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    showDialog = false;
+                    onDismiss()
+                }) {
+                    Text(text = "Confirmar")
+                }
+            },
+            text = {
+                Column(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 5.dp),
+                ) {
+
+                    Text(
+                        text = "Ingrese su número de celular",
+                        color = MaterialTheme.colorScheme.secondary,
+                        textAlign = TextAlign.Center,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Spacer(modifier = modifier.height(15.dp))
+
+                    Row(
+                        modifier = modifier
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+
+                        OutlinedTextField(
+                            value = text,
+                            onValueChange = { text = it },
+                            label = { Text("") },
+                            keyboardOptions = KeyboardOptions.Default.copy(
+                                keyboardType = KeyboardType.Number,
+                                imeAction = ImeAction.Done
+                            ),
+                            shape = RoundedCornerShape(20.dp),
+                            textStyle = TextStyle(
+                                fontSize = 17.sp,
+                                textAlign = TextAlign.Center
+                            )
+                        )
+
+                    }
+                }
+            })
+    }
+
 }
 
 // Función para autenticar con Firebase usando el token de Google
@@ -215,7 +247,10 @@ private fun firebaseAuthWithGoogle(credential: AuthCredential) {
                 Log.d("FirebaseGoogle", "firebaseAuthWithGoogle: ${auth.currentUser?.displayName}")
             } else {
                 println("Inicio de sesión fallido")
-                Log.d("FirebaseGoogleError", "firebaseAuthWithGoogle - Error: ${auth.currentUser?.displayName}")
+                Log.d(
+                    "FirebaseGoogleError",
+                    "firebaseAuthWithGoogle - Error: ${auth.currentUser?.displayName}"
+                )
             }
         }
 }
