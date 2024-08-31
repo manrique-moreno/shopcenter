@@ -3,13 +3,17 @@ package com.shopcenter.app.login.ui
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
+import androidx.compose.material3.FloatingActionButtonElevation
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,10 +23,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -33,7 +35,6 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.shopcenter.app.R
 import com.shopcenter.app.login.ui.components.ButtonLogin
-import com.shopcenter.app.ui.theme.orange
 import kotlinx.coroutines.delay
 
 @Preview(showBackground = true)
@@ -70,17 +71,17 @@ fun LoginScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(orange),
+            .background(color = MaterialTheme.colorScheme.background),
         contentAlignment = Alignment.Center
     ) {
-        Image(
+        /*Image(
             painter = painterResource(id = R.drawable.background) /*rememberAsyncImagePainter(url=)*/,
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
-        )
-        
-        
+        )*/
+
+
         Column(modifier = Modifier.graphicsLayer {
             rotationY = rotarY
             rotationX = rotarX
@@ -91,7 +92,7 @@ fun LoginScreen() {
                 fontFamily = customFont,
                 fontSize = 350.sp,
                 textAlign = TextAlign.Center,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.secondary,
                 modifier = Modifier.fillMaxWidth()
 
             )
@@ -99,7 +100,7 @@ fun LoginScreen() {
                 text = "ORIGINALS",
                 textAlign = TextAlign.Center,
                 fontSize = 30.sp,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.secondary,
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 0.25.em,
                 modifier = Modifier

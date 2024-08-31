@@ -1,14 +1,12 @@
 package com.shopcenter.app.login.ui.components
 
-import android.app.Activity
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,6 +18,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -47,6 +46,8 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.shopcenter.app.R
+import com.shopcenter.app.ui.theme.black
+import com.shopcenter.app.ui.theme.white
 
 @Composable
 fun ButtonLogin(modifier: Modifier) {
@@ -79,14 +80,14 @@ fun ButtonLogin(modifier: Modifier) {
             modifier = modifier
                 .fillMaxWidth()
                 .background(
-                    color = Color.Black.copy(0.6f),
+                    color = if (isSystemInDarkTheme()) white.copy(0.15f) else black.copy(0.15f),
                     shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp)
                 )
                 .padding(vertical = 20.dp),
         ) {
 
             Text(text = "Iniciar sesión con",
-                color = Color.White,
+                color = MaterialTheme.colorScheme.secondary,
                 textAlign = TextAlign.Center,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
@@ -96,7 +97,8 @@ fun ButtonLogin(modifier: Modifier) {
 
             Row(
                 modifier = modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .padding(bottom = 10.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -107,7 +109,6 @@ fun ButtonLogin(modifier: Modifier) {
                     modifier = Modifier
                         .size(55.dp)
                         .clip(CircleShape)
-                        .border(border = BorderStroke(1.dp, Color.Black), shape = CircleShape)
                         .clickable {
                             //signIn()
                             val opciones = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
