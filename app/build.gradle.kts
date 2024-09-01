@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.firebase.auth)
+    implementation(libs.androidx.lifecycle.runtime.compose.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -75,7 +76,7 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
 
-    //hilt navigation compose
+    //navigation compose
     implementation(libs.androidx.navigation.compose)
 
     //images
@@ -84,8 +85,11 @@ dependencies {
     //lottie
     implementation(libs.lottie.compose)
 
+    //firebase
     implementation(platform(libs.firebase.bom))
-
     implementation(libs.play.services.auth)
+
+    //hilt navigation compose
+    implementation(libs.androidx.hilt.navigation.compose)
 
 }

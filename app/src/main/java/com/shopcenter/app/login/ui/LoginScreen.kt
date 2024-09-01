@@ -1,5 +1,7 @@
 package com.shopcenter.app.login.ui
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -9,11 +11,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.FloatingActionButtonDefaults
-import androidx.compose.material3.FloatingActionButtonElevation
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -23,8 +22,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -33,39 +32,66 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.shopcenter.app.R
+import com.shopcenter.app.login.data.UserG
 import com.shopcenter.app.login.ui.components.ButtonLogin
+import com.shopcenter.app.login.ui.util.LoginUIState
 import kotlinx.coroutines.delay
 
 @Preview(showBackground = true)
 @Composable
-fun LoginScreen() {
+fun LoginScreen(
+    loginViewModel: LoginViewModel = hiltViewModel()
+) {
+
+    val uiState by loginViewModel.uiSate.collectAsStateWithLifecycle()
+
+
     val customFont = FontFamily(Font(R.font.alba____))
     var rotatedX by remember { mutableStateOf(false) }
     var rotatedY by remember { mutableStateOf(false) }
-    var animacionTexto by remember { mutableStateOf(150.dp) }
+    var animatedText by remember { mutableStateOf(150.dp) }
 
     LaunchedEffect(Unit) {
         rotatedY = true
         delay(2500)
         rotatedX = true
-        animacionTexto = 0.dp
+        animatedText = 0.dp
     }
 
     val rotarY by animateFloatAsState(
         targetValue = if (rotatedY) 360f else 0f,
-        animationSpec = tween(durationMillis = 2500)
+        animationSpec = tween(durationMillis = 2500), label = ""
     )
 
     val rotarX by animateFloatAsState(
         targetValue = if (rotatedX) 20f else 0f,
-        animationSpec = tween(durationMillis = 2000)
+        animationSpec = tween(durationMillis = 2000), label = ""
     )
 
     val animateTexto by animateDpAsState(
-        targetValue = animacionTexto,
-        animationSpec = tween(durationMillis = 2000)
+        targetValue = animatedText,
+        animationSpec = tween(durationMillis = 2000), label = ""
     )
+
+
+    if (uiState.isLoading){
+        CircularProgressIndicator()
+    }else{
+
+        when(uiState){
+            is LoginUIState.NoUser -> {
+                //Toast.makeText(LocalContext.current, "NOOOOO", Toast.LENGTH_SHORT).show()
+                Log.d("logViewModel", "firebaseAuthWithGoogle: ${uiState.errorMessage}")
+            }
+            is LoginUIState.User -> {
+                Toast.makeText(LocalContext.current, "OKKKKKKKK", Toast.LENGTH_SHORT).show()
+                Log.d("logViewModel", "firebaseAuthWithGoogle: ${(uiState as LoginUIState.User).dataUser?.displayName}")
+            }
+        }
+    }
 
 
     Box(
@@ -74,13 +100,6 @@ fun LoginScreen() {
             .background(color = MaterialTheme.colorScheme.background),
         contentAlignment = Alignment.Center
     ) {
-        /*Image(
-            painter = painterResource(id = R.drawable.background) /*rememberAsyncImagePainter(url=)*/,
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop
-        )*/
-
 
         Column(modifier = Modifier.graphicsLayer {
             rotationY = rotarY
@@ -110,18 +129,10 @@ fun LoginScreen() {
         }
 
         ButtonLogin(
-            Modifier
+            modifier = Modifier
                 .offset(y = animateTexto)
-                .align(Alignment.BottomCenter))
+                .align(Alignment.BottomCenter),
+            loginViewModel = loginViewModel
+        )
     }
-}
-
-fun addGoogle(){
-    /*val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-        .requestIdToken(getString(R.string.default_web_client_id))
-        .requestEmail()
-        .build()
-
-    val googleSignInClient = GoogleSignIn.getClient(this, gso)*/
-
 }
